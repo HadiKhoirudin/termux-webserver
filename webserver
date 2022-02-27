@@ -78,11 +78,17 @@ esac
 if [ $ERROR -eq 0 ]
 then
     mysqld_safe &
+    sleep 3
     clear
+    echo " Membuka browser localhost... "
+    sleep 2
     termux-open-url http://localhost:8080/
 else
     mysqld_safe &
+    sleep 3
     clear
+    echo " Membuka browser localhost... "
+    sleep 2
     termux-open-url http://localhost:8080/
 fi
 
