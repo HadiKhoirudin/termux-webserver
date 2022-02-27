@@ -1,0 +1,52 @@
+#!$PREFIX/bin/bash
+# Paket instalasi PHP, Apache2, MariaDB / MySQL,
+# Composer, PHPMyAdmin, & mc File Explorer - Termux.
+#
+# Oleh Hadi Khoirudin, S.Kom.
+#
+
+pkg update && pkg upgrade -y
+
+pkg install php php-apache
+
+termux-setup-storage
+
+sleep 4
+
+htdocs='/sdcard/htdocs'
+if [ ! -d $htdocs ];
+then
+  mkdir $htdocs
+fi
+
+pkg install apache2 -y
+
+rm $PREFIX/etc/apache2/httpd.conf
+
+mv httpd.conf $PREFIX/etc/apache2/
+
+touch $PREFIX/etc/apache2/extra/php_module.conf
+
+mkdir /sdcard/htdocs/phpinfo
+echo "<?php phpinfo(); ?>" >>/sdcard/htdocs/phpinfo/index.php
+
+rm $PREFIX/bin/webserver
+
+chmod +x webserver
+
+mv webserver $PREFIX/bin/
+
+pkg install mariadb composer mc -y
+
+cd /sdcard/htdocs && composer create-project phpmyadmin/phpmyadmin
+
+cd ~/termux-webserver && mv config.inc.php /sdcard/htdocs/phpmyadmin/config.inc.php
+
+echo "webserver telah sukses terpasang..."
+echo "/sdcard/htdocs - adalah folder dokumen web.."
+echo "simpan file-file dokumen web di /sdcard/htdocs"
+echo "silahkan jalankan perintah $webserver untuk menggunakan termux sebagai webserver lokal."
+
+echo "By : Hadi Khoirudin, S.Kom."
+
+#webserver
