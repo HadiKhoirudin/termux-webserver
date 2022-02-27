@@ -6,7 +6,7 @@ Oleh Hadi Khoirudin, S.Kom.
 1. Silahkan buka aplikasi Termux, lalu kemudian jalankan perintah ini :
 
 ```
-pkg install git -y && cd ~/ && git clone https://github.com/HadiKhoirudin/termux-webserver.git && cd ~/termux-webserver && bash setup && cd ~/
+pkg install git -y && cd ~/ && git clone https://github.com/HadiKhoirudin/termux-webserver.git && cd ~/termux-webserver && chmod +x setup && bash setup && cd ~/
 ```
 
 2. Setelah Termux membuka browser secara otomatis, maka silahkan coba login ke http://localhost:8080/phpmyadmin dengan user : root dan passwordnya dikosongkan saja.
