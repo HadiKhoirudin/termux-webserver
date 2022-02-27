@@ -5,11 +5,14 @@
 # Oleh Hadi Khoirudin, S.Kom.
 #
 
-pkg update && pkg upgrade -y
+pkg update -y && pkg upgrade -y
 
-pkg install php php-apache
+pkg install php php-apache -y
 
-termux-setup-storage
+if [ ! -d ~/storage ];
+then
+  termux-setup-storage
+fi
 
 sleep 4
 
@@ -28,7 +31,7 @@ mv httpd.conf $PREFIX/etc/apache2/
 touch $PREFIX/etc/apache2/extra/php_module.conf
 
 mkdir /sdcard/htdocs/phpinfo
-echo "<?php phpinfo(); ?>" >>/sdcard/htdocs/phpinfo/index.php
+echo "<?php phpinfo(); ?>" >/sdcard/htdocs/phpinfo/index.php
 
 rm $PREFIX/bin/webserver
 
@@ -37,16 +40,20 @@ chmod +x webserver
 mv webserver $PREFIX/bin/
 
 pkg install mariadb composer mc -y
-
+echo " "
+echo " "
 cd /sdcard/htdocs && composer create-project phpmyadmin/phpmyadmin
-
+echo " "
 cd ~/termux-webserver && mv config.inc.php /sdcard/htdocs/phpmyadmin/config.inc.php
+echo " "
+echo " "
 
 echo "webserver telah sukses terpasang..."
+echo " "
 echo "/sdcard/htdocs - adalah folder dokumen web.."
 echo "simpan file-file dokumen web di /sdcard/htdocs"
-echo "silahkan jalankan perintah $webserver untuk menggunakan termux sebagai webserver lokal."
-
+echo "silahkan jalankan perintah $ webserver untuk menggunakan termux sebagai webserver lokal."
+echo " "
 echo "By : Hadi Khoirudin, S.Kom."
 
 #webserver
